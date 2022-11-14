@@ -5,6 +5,7 @@ import '../../utilities/color_manager.dart';
 class MainButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+
   const MainButton({Key? key, required this.text, required this.onTap})
       : super(key: key);
 

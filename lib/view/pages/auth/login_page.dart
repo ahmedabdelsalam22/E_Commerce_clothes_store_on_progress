@@ -1,23 +1,31 @@
+import 'package:ecommerce/utilities/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../utilities/color_manager.dart';
-import '../../utilities/routes.dart';
-import '../widgets/main_button.dart';
-import '../widgets/text_form_field.dart';
+import '../../../utilities/routes.dart';
+import '../../widgets/main_button.dart';
+import '../../widgets/text_form_field.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,71 +48,80 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                   Text(
-                    'Register',
+                    'Login',
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
                         .copyWith(fontSize: 34, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
-                    height: 40.0,
-                  ),
-                  DefaultTextField(
-                    controller: _nameController,
-                    inputType: TextInputType.name,
-                    label: 'Name',
-                    hint: 'Enter your Name',
-                    validateMessage: 'Enter valid Name',
-                  ),
-                  const SizedBox(
-                    height: 15.0,
+                    height: 50.0,
                   ),
                   DefaultTextField(
                     controller: _emailController,
+                    fNode: _emailFocusNode,
+                    onComplete: () =>
+                        FocusScope.of(context).requestFocus(_passwordFocusNode),
                     inputType: TextInputType.emailAddress,
                     label: 'Email',
                     hint: 'Enter your email',
                     validateMessage: 'Enter valid Email',
                   ),
                   const SizedBox(
-                    height: 15.0,
+                    height: 20.0,
                   ),
                   DefaultTextField(
                     controller: _passwordController,
+                    fNode: _passwordFocusNode,
                     inputType: TextInputType.visiblePassword,
                     label: 'Password',
                     hint: 'Enter your password',
                     validateMessage: 'Enter valid password',
                   ),
                   const SizedBox(
-                    height: 3.0,
+                    height: 20.0,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: const Align(
+                      alignment: Alignment.topRight,
+                      child: Text('Forget your password?'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  MainButton(
+                    text: 'LOGIN',
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.bottomNavBarRoute);
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 3,
                   ),
                   Row(
                     children: [
-                      const Text('I already have an account?'),
+                      const Text('I have\'t an account?'),
                       TextButton(
                         onPressed: () {
                           Navigator.pushNamed(
-                              context, AppRoutes.loginPageRoute);
+                              context, AppRoutes.registerPageRoute);
                         },
-                        child: const Text('Login'),
+                        child: const Text('Register'),
                       )
                     ],
                   ),
                   const SizedBox(
-                    height: 25.0,
-                  ),
-                  MainButton(
-                    text: 'SIGN UP',
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 110,
+                    height: 130,
                   ),
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Or sign up with social account',
+                      'Or login with social account',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
