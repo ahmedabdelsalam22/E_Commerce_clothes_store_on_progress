@@ -8,6 +8,8 @@ class DefaultTextField extends StatelessWidget {
   final String label;
   final String hint;
   final String validateMessage;
+  final FocusNode fNode;
+  final Function? onComplete;
 
   const DefaultTextField({
     Key? key,
@@ -16,6 +18,8 @@ class DefaultTextField extends StatelessWidget {
     required this.label,
     required this.hint,
     required this.validateMessage,
+    required this.fNode,
+    this.onComplete,
   }) : super(key: key);
 
   @override
@@ -28,6 +32,7 @@ class DefaultTextField extends StatelessWidget {
       ),
       child: TextFormField(
         controller: controller,
+        focusNode: fNode,
         keyboardType: inputType,
         decoration: InputDecoration(
           label: Text(label),
@@ -40,6 +45,9 @@ class DefaultTextField extends StatelessWidget {
             return validateMessage;
           }
           return null;
+        },
+        onEditingComplete: () {
+          onComplete!();
         },
       ),
     );

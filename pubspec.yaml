@@ -17,6 +17,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.2.1
+  persistent_bottom_nav_bar_v2: ^4.2.3
+  flutter_iconly: ^1.0.2
+  card_swiper: ^2.0.4
+  flutter_rating_bar: ^4.0.1
 
 
 
