@@ -36,4 +36,8 @@ class AuthController with ChangeNotifier {
       showToast(message: e.toString(), color: Colors.red);
     }
   }
+
+  Future<void> logOut() async {
+    await authBase.logOut();
+  }
 }
