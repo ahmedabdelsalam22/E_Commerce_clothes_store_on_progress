@@ -31,12 +31,9 @@ class SaleItemList extends StatelessWidget {
           Stack(
             alignment: Alignment.topLeft,
             children: [
-              Container(
-                width: 160,
+              SizedBox(
+                width: 145,
                 height: 210,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                ),
                 child: Image.asset(
                   dummyProduct.imgUrl,
                   fit: BoxFit.fill,
@@ -91,8 +88,8 @@ class SaleItemList extends StatelessWidget {
           ),
           Row(
             children: [
-              const Text('15\$',
-                  style: TextStyle(
+              Text('${dummyProduct.discountValue}\$',
+                  style: const TextStyle(
                     decoration: TextDecoration.lineThrough,
                     color: Colors.grey,
                   )),
@@ -100,7 +97,7 @@ class SaleItemList extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '${dummyProduct.price}\$',
+                '${dummyProduct.price * (dummyProduct.discountValue) / 100}\$',
                 style: TextStyle(color: ColorManager.primary),
               ),
             ],
