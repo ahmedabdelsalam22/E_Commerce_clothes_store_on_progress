@@ -9,8 +9,11 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.backGround,
-      body: const Center(
-        child: Text('ProfilePage'),
+      body: Center(
+        child: TextButton(
+          onPressed: () {},
+          child: const Text('log Out'),
+        ),
       ),
     );
   }

@@ -9,7 +9,8 @@ class DefaultTextField extends StatelessWidget {
   final String hint;
   final String validateMessage;
   final FocusNode fNode;
-  final Function? onComplete;
+  final VoidCallback? onComplete;
+  final ValueChanged<String>? onChanged;
 
   const DefaultTextField({
     Key? key,
@@ -20,6 +21,7 @@ class DefaultTextField extends StatelessWidget {
     required this.validateMessage,
     required this.fNode,
     this.onComplete,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -40,15 +42,14 @@ class DefaultTextField extends StatelessWidget {
           border: InputBorder.none,
         ),
         cursorColor: ColorManager.primary,
+        onChanged: onChanged,
         validator: (value) {
           if (value!.isEmpty) {
             return validateMessage;
           }
           return null;
         },
-        onEditingComplete: () {
-          onComplete!();
-        },
+        onEditingComplete: onComplete,
       ),
     );
   }
