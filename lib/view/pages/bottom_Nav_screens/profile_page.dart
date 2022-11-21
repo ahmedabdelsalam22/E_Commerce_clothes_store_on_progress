@@ -1,4 +1,6 @@
+import 'package:ecommerce/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utilities/color_manager.dart';
 
@@ -10,9 +12,15 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorManager.backGround,
       body: Center(
-        child: TextButton(
-          onPressed: () {},
-          child: const Text('log Out'),
+        child: Consumer<AuthController>(
+          builder: (_, value, __) {
+            return TextButton(
+              onPressed: () {
+                value.logOut();
+              },
+              child: const Text('log Out'),
+            );
+          },
         ),
       ),
     );

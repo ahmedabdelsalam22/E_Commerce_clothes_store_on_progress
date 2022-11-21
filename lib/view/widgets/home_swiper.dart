@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class HomeSwiper extends StatelessWidget {
   const HomeSwiper({Key? key}) : super(key: key);
 
-  static List<String> offerImages = [
+  static List<String>? offerImages = [
     AppAssets.swiperCartOne,
     AppAssets.swiperCartTwo,
     AppAssets.swiperCartThree,
@@ -19,14 +19,14 @@ class HomeSwiper extends StatelessWidget {
       width: double.infinity,
       height: size.height * 0.28,
       child: Swiper(
-        autoplay: true,
+        autoplay: false,
         itemBuilder: (BuildContext context, int index) {
           return Image.asset(
-            offerImages[index],
+            offerImages![index],
             fit: BoxFit.fill,
           );
         },
-        itemCount: offerImages.length,
+        itemCount: offerImages!.length,
         pagination: const SwiperPagination(
           alignment: Alignment.bottomCenter,
           builder: DotSwiperPaginationBuilder(

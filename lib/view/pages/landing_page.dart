@@ -1,3 +1,4 @@
+import 'package:ecommerce/controller/auth_controller.dart';
 import 'package:ecommerce/services/auth.dart';
 import 'package:ecommerce/view/pages/auth/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthBase>(context, listen: false);
+    final auth = Provider.of<AuthBase>(context);
 
     return StreamBuilder(
       stream: auth.authStateChanges(),
@@ -21,7 +22,10 @@ class LandingPage extends StatelessWidget {
           if (user == null) {
             return const LoginPage();
           }
-          return BottomNavBar();
+          return ChangeNotifierProvider<AuthController>(
+            create: (_) => AuthController(authBase: auth, context),
+            child: BottomNavBar(),
+          );
         }
         return const Scaffold(
           body: Center(
