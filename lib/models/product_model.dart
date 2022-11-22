@@ -4,6 +4,7 @@ class Product {
   final String id;
   final String title;
   final int price;
+  final int oldPrice;
   final String imgUrl;
   final int discountValue;
   final String category;
@@ -13,6 +14,7 @@ class Product {
     required this.id,
     required this.title,
     required this.price,
+    required this.oldPrice,
     required this.imgUrl,
     this.discountValue = 0,
     this.category = 'Other',
@@ -24,6 +26,7 @@ class Product {
       'id': id,
       'title': title,
       'price': price,
+      'price': oldPrice,
       'imgUrl': imgUrl,
       'discountValue': discountValue,
       'category': category,
@@ -36,6 +39,7 @@ class Product {
       id: documentId,
       title: map['title'] as String,
       price: map['price'] as int,
+      oldPrice: map['oldPrice'] as int,
       imgUrl: map['imgUrl'] as String,
       discountValue: map['discountValue'] as int,
       category: map['category'] as String,
@@ -52,8 +56,9 @@ List<Product> dummyProducts = [
     imgUrl: AppAssets.fashion,
     category: 'Clothes',
     discountValue: 20,
+    oldPrice: 35,
   ),
-  Product(
+/*  Product(
     id: '1',
     title: 'T-shirt',
     price: 15,
@@ -91,5 +96,5 @@ List<Product> dummyProducts = [
     imgUrl: AppAssets.fashion,
     category: 'Clothes',
     discountValue: 20,
-  ),
+  ),*/
 ];

@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
 
-class SaleItemList extends StatelessWidget {
-  const SaleItemList({Key? key}) : super(key: key);
+class NewItemList extends StatelessWidget {
+  const NewItemList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SaleItemList extends StatelessWidget {
     return SizedBox(
       height: 320,
       child: StreamBuilder<List<Product>>(
-        stream: database.salesProductsStream(),
+        stream: database.newProductsStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             final products = snapshot.data;
@@ -62,20 +62,22 @@ class SaleItemList extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: const EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    color: ColorManager.primary,
-                    borderRadius: BorderRadius.circular(16),
+              if (product.discountValue !=
+                  0) //not show items which have not discount
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      color: ColorManager.primary,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                        child: Text(
+                      '-${product.discountValue}%',
+                    )),
                   ),
-                  child: Center(
-                      child: Text(
-                    '-${product.discountValue}%',
-                  )),
                 ),
-              ),
               /* Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: const BoxDecoration(
@@ -111,17 +113,26 @@ class SaleItemList extends StatelessWidget {
           ),
           Row(
             children: [
-              Text('${product.oldPrice}\$',
-                  style: const TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    color: Colors.grey,
-                  )),
-              const SizedBox(
-                width: 5,
-              ),
               if (product.discountValue != 0)
+                Row(
+                  children: [
+                    Text('${product.oldPrice}\$',
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.grey,
+                        )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      '${product.oldPrice * (product.discountValue) / 100}\$',
+                      style: TextStyle(color: ColorManager.primary),
+                    ),
+                  ],
+                ),
+              if (product.discountValue == 0)
                 Text(
-                  '${product.oldPrice * (product.discountValue) / 100}\$',
+                  '${product.oldPrice}\$',
                   style: TextStyle(color: ColorManager.primary),
                 ),
             ],

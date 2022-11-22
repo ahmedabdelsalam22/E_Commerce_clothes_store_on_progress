@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/home_swiper.dart';
+import '../../widgets/new_item_list.dart';
 import '../../widgets/sale_item_list.dart';
 import '../../widgets/view_all.dart';
 
@@ -24,6 +25,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
+          ///////////////////////////////////
           const SaleItemList(),
           const SizedBox(
             height: 5,
@@ -36,7 +38,8 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const SaleItemList(),
+          ////////////////////////////////////
+          const NewItemList(),
         ],
       ),
     );
