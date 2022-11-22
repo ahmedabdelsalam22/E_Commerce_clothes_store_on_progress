@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
+import '../../utilities/routes.dart';
 
 class NewItemList extends StatelessWidget {
   const NewItemList({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class NewItemList extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return saleItemBuilder(products[index]);
+                return saleItemBuilder(products[index], context);
               },
               itemCount: products.length,
             );
@@ -43,101 +44,105 @@ class NewItemList extends StatelessWidget {
     );
   }
 
-  Widget saleItemBuilder(Product product) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 7),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              SizedBox(
-                width: 145,
-                height: 210,
-                child: Image(
-                  image: NetworkImage(
-                    product.imgUrl,
+  Widget saleItemBuilder(Product product, context) {
+    return InkWell(
+      onTap: () => Navigator.of(context, rootNavigator: true)
+          .pushNamed(AppRoutes.productDetailsPageRoute, arguments: product),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 7),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                SizedBox(
+                  width: 145,
+                  height: 210,
+                  child: Image(
+                    image: NetworkImage(
+                      product.imgUrl,
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                  fit: BoxFit.fill,
                 ),
-              ),
-              if (product.discountValue !=
-                  0) //not show items which have not discount
-                Padding(
+                if (product.discountValue !=
+                    0) //not show items which have not discount
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                          child: Text(
+                        '-${product.discountValue}%',
+                      )),
+                    ),
+                  ),
+                /* Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: ColorManager.primary,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Center(
-                        child: Text(
-                      '-${product.discountValue}%',
-                    )),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
                   ),
-                ),
-              /* Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: const Center(
-                  child: Icon(IconlyLight.heart),
-                ),
-              ),*/
-            ],
-          ),
-          ratingBar(),
-          const SizedBox(
-            height: 3,
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          Text(
-            product.title,
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          Text(
-            product.category,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              if (product.discountValue != 0)
-                Row(
-                  children: [
-                    Text('${product.oldPrice}\$',
-                        style: const TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                          color: Colors.grey,
-                        )),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '${product.oldPrice * (product.discountValue) / 100}\$',
-                      style: TextStyle(color: ColorManager.primary),
-                    ),
-                  ],
-                ),
-              if (product.discountValue == 0)
-                Text(
-                  '${product.oldPrice}\$',
-                  style: TextStyle(color: ColorManager.primary),
-                ),
-            ],
-          ),
-        ],
+                  child: const Center(
+                    child: Icon(IconlyLight.heart),
+                  ),
+                ),*/
+              ],
+            ),
+            ratingBar(),
+            const SizedBox(
+              height: 3,
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              product.title,
+              style: const TextStyle(color: Colors.grey),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              product.category,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                if (product.discountValue != 0)
+                  Row(
+                    children: [
+                      Text('${product.oldPrice}\$',
+                          style: const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.grey,
+                          )),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '${product.oldPrice * (product.discountValue) / 100}\$',
+                        style: TextStyle(color: ColorManager.primary),
+                      ),
+                    ],
+                  ),
+                if (product.discountValue == 0)
+                  Text(
+                    '${product.oldPrice}\$',
+                    style: TextStyle(color: ColorManager.primary),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
