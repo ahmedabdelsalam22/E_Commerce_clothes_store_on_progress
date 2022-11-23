@@ -172,7 +172,7 @@ class NewItemList extends StatelessWidget {
     );
   }
 
-  /* ratingBar(int? rate) {
+/* ratingBar(int? rate) {
     return SizedBox(
       child: Row(
         children: [

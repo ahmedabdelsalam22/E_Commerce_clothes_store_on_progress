@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../widgets/drop_down_menu.dart';
 import '../widgets/main_button.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -68,9 +69,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const SizedBox(),
+                Expanded(
+                  child: DropDownMenuComponent(
+                    hint: 'Size',
+                    onChanged: (String? value) {},
+                    items: const ['S', 'M', 'L', 'XL', 'XXL'],
+                  ),
+                ),
+                const Spacer(),
                 InkWell(
                   onTap: () {
                     setState(() {
