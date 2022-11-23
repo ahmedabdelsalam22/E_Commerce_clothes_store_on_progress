@@ -2,6 +2,7 @@ import 'package:ecommerce/controller/database_controller.dart';
 import 'package:ecommerce/utilities/color_manager.dart';
 import 'package:ecommerce/utilities/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,12 @@ class SaleItemList extends StatelessWidget {
   }
 
   Widget saleItemBuilder(Product product, context) {
+    final size = MediaQuery.of(context).size;
+    bool isFav = false;
+    void changeFavIcon() {
+      isFav = !isFav;
+    }
+
     return InkWell(
       onTap: () => Navigator.of(context, rootNavigator: true)
           .pushNamed(AppRoutes.productDetailsPageRoute, arguments: product),
@@ -80,21 +87,38 @@ class SaleItemList extends StatelessWidget {
                     )),
                   ),
                 ),
-                /* Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
+                Positioned(
+                  left: size.width * 0.23,
+                  bottom: size.height * 0.011,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey.withOpacity(0.5)),
+                        child: Icon(
+                          isFav ? IconlyBold.heart : IconlyLight.heart,
+                          size: 30,
+                          color: ColorManager.primary,
+                        ),
+                      ),
+                    ),
                   ),
-                  child: const Center(
-                    child: Icon(IconlyLight.heart),
-                  ),
-                ),*/
+                ),
               ],
             ),
-            ratingBar(),
-            const SizedBox(
-              height: 3,
+            RatingBarIndicator(
+              itemSize: 25.0,
+              rating: product.rate?.toDouble() ?? 4.0,
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              direction: Axis.horizontal,
             ),
             const SizedBox(
               height: 3,
@@ -136,13 +160,13 @@ class SaleItemList extends StatelessWidget {
     );
   }
 
-  ratingBar() {
+/*  ratingBar(int? rate) {
     return SizedBox(
       child: Row(
         children: [
           RatingBar.builder(
-            itemSize: 23,
-            initialRating: 3,
+            itemSize: 20,
+            initialRating: rate!.toDouble(),
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: true,
@@ -153,9 +177,9 @@ class SaleItemList extends StatelessWidget {
             ),
             onRatingUpdate: (rating) {},
           ),
-          const Text('5'),
+          Text('$rate'),
         ],
       ),
     );
-  }
+  }*/
 }

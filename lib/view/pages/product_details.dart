@@ -153,7 +153,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         child: Row(
           children: [
             RatingBar.builder(
-              itemSize: 23,
+              itemSize: 25,
               initialRating: 3,
               minRating: 1,
               direction: Axis.horizontal,
