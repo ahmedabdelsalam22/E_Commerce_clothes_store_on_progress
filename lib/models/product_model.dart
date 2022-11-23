@@ -26,7 +26,7 @@ class Product {
       'id': id,
       'title': title,
       'price': price,
-      'price': oldPrice,
+      'oldPrice': oldPrice,
       'imgUrl': imgUrl,
       'discountValue': discountValue,
       'category': category,
