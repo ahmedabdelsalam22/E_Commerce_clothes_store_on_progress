@@ -24,8 +24,8 @@ void main() async {
   ));
 
   //firebase messaging
-  String? token = await FirebaseMessaging.instance.getToken();
-  debugPrint(token);
+  String? fcmToken = await FirebaseMessaging.instance.getToken();
+  debugPrint(fcmToken);
   // when app is opened when get notification
   FirebaseMessaging.onMessage.listen((event) {
     debugPrint(event.data.toString());
