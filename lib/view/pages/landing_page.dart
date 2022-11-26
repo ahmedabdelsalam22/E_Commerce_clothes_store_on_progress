@@ -24,7 +24,7 @@ class LandingPage extends StatelessWidget {
             return const LoginPage();
           }
           return ChangeNotifierProvider<AuthController>(
-            create: (_) => AuthController(authBase: auth, context),
+            create: (_) => AuthController(authBase: auth),
             child: Provider<Database>(
               create: (_) => FirestoreDatabase(user.uid),
               child: BottomNavBar(),

@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var auth = Provider.of<AuthBase>(context);
 
     return ChangeNotifierProvider<AuthController>(
-      create: (_) => AuthController(authBase: auth, context),
+      create: (_) => AuthController(authBase: auth),
       child: Consumer<AuthController>(
         builder: (_, value, __) {
           return Scaffold(
@@ -128,8 +128,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               value.signUpWithEmailAndPassword(
+                                  name: _nameController.text,
                                   email: _emailController.text,
-                                  password: _passwordController.text);
+                                  password: _passwordController.text,
+                                  context: context);
                             }
                           },
                         ),
