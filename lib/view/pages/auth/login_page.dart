@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
     final auth = Provider.of<AuthBase>(context);
 
     return ChangeNotifierProvider<AuthController>(
-      create: (_) => AuthController(authBase: auth, context),
+      create: (_) => AuthController(authBase: auth),
       child: Consumer<AuthController>(
         builder: (_, value, __) {
           return Scaffold(
@@ -109,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               value.loginWithEmailAndPassword(
+                                  context: context,
                                   email: _emailController.text,
                                   password: _passwordController.text);
                             }
